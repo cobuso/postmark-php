@@ -5,6 +5,7 @@ namespace Postmark\Models;
 class PostmarkAttachment implements \JsonSerializable {
 
 	private $name;
+	private $contentId;
 	private $mimeType;
 	private $data;
 
@@ -30,7 +31,7 @@ class PostmarkAttachment implements \JsonSerializable {
 			"Name" => $this->name,
 			"Content" => $this->data,
 			"ContentType" => $this->mimeType ?: "application/octet-stream",
-			"ContentId" => $this->name,
+			"ContentId" => $this->contentId,
         );
 
 		return $retval;
@@ -38,6 +39,7 @@ class PostmarkAttachment implements \JsonSerializable {
 
 	private function __construct($base64EncodedData, $attachmentName, $mimeType = "application/octet-stream") {
 		$this->name = $attachmentName;
+		$this->contentId = $attachmentName;
 		$this->data = $base64EncodedData;
 		$this->mimeType = $mimeType;
 	}
